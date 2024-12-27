@@ -1,0 +1,368 @@
+---
+title: "Capstone Project, Bellabeat Casestudy"
+author: "Tamakloe Vivian Anuoluwa"
+date: "2024-07-05"
+output:
+  html_document: default
+  pdf_document: default
+  word_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## **INTRODUCTION **
+Welcome to my Google Data Analytics Capstone project, Bellabeat Case Study! This case study will answer a business task, which follows the steps of data analysis process: Ask, Prepare, Process, Analyze, Share, and Act.
+
+### About Bellabeat
+Bellabeat is a high-tech company that manufactures health-focused smart products which are based on beautifully designed technology that informs and inspires women around the world. Collecting data on activity, sleep, stress, and reproductive health has allowed Bellabeat to empower women with knowledge about their own health and habits. One can say Bellabeat is a tech-driven wellness company for women.
+
+### Bellabeats Product
+* Bellabeat App
+* Leaf
+* Time
+* Spring
+* Bellabeat Membership
+
+### Scenario
+I am a junior data analyst working on the marketing analyst team at Bellabeat. I have been asked to focus on one of Bellabeat’s products and analyze smart device data to gain insight into how consumers are using their smart devices. This insights  will help guide marketing strategy for the company. 
+
+### Product
+The focused product of this analysis is **BellaBeat App**
+
+## **ASK PHASE**
+In this phase, I tried to understand the problem the marketing team has targeted, which is how a trend in smart device usage can be applied to Bellabeat customers. I will analyze smart device usage data in order to gain insight which will reveal  opportunities for Bellabeat's growth. Bellabeat marketing team will be able to target efforts to products that meets the needs of their customers based on their fitness smart devices usage. 
+
+The Stakeholders of this case study are:
+
+* Urška Sršen: Bellabeat’s co-founder and Chief Creative Officer
+* Sando Mur: Mathematician and Bellabeat’s co-founder; key member of the Bellabeat executive team
+* Bellabeat marketing analytics team
+
+### Business Task
+**Focusing on Bellabeat product and analyzing how people are already using their smart devices in order to gain insights that would reveal more opportunities for growth and recommendations for Bellabeat marketing team based on trends in smart device data usage.**
+
+## **PREPARE PHASE**
+In this phase, I will download and import my dataset. I will also install and load the necessary R packages
+
+### Downloading my dataset
+The stakeholders  encouraged me to use public data that explores smart device users’ daily habits. FitBit Fitness Tracker Data (CC0: Public Domain, dataset made available through Mobius). This Kaggle data set contains personal fitness tracker from fitbit users who consented to the submission of personal tracker data, including minute-level output for physical activity, heart rate, and sleep monitoring. It includes information about daily activity, steps, and heart rate that can be used to explore users’ habits.
+The dataset 
+
+* FitBit Fitness Tracker Data: https://www.kaggle.com/datasets/arashnic/fitbit
+
+### Installing the necessary packages
+I installed all the necessary packages to help in my analysis, using **install.packages()** function this packages includes:
+
+* tidyverse
+* skimr
+* janitor
+* lubridate
+* ggplot2
+* dplyr 
+* tidyr
+* here 
+
+### Loading the necessary packages
+Then I proceed to loading them
+```{r loading packages }
+library(tidyverse)
+library(skimr)
+library(janitor)
+library(lubridate)
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+library(here)
+```
+
+### Importing the datasets
+I proceeded to importing the necessary datasets needed for my analysis, then I VIEWED the data so as to be able to CLEAN,FORMAT and ORGNISE in the next phase.
+
+* **dailyActivity_merged.csv**
+```{r importing Activity dataset}
+Activity <- read_csv("C:/Users/user/Documents/BellaBeat/Datasets/Fitabase Data 4.12.16-5.12.16/dailyActivity_merged.csv")
+head(Activity)
+colnames(Activity)
+str(Activity)
+```
+
+* **dailyCalories_merged.csv**
+```{r importing Calories dataset}
+Calories <- read_csv("C:/Users/user/Documents/BellaBeat/Datasets/Fitabase Data 4.12.16-5.12.16/dailyCalories_merged.csv")
+head(Calories)
+colnames(Calories)
+str(Calories)
+```
+
+* **dailyintensities_merged.csv**
+```{r importing Intensity dataset}
+Intensity <- read_csv("C:/Users/user/Documents/BellaBeat/Datasets/Fitabase Data 4.12.16-5.12.16/dailyIntensities_merged.csv")
+head(Intensity)
+colnames(Intensity)
+str(Intensity)
+```
+
+* **weightLogInfo_merged.csv**
+```{r importing Weight dataset}
+Weight <- read_csv("C:/Users/user/Documents/BellaBeat/Datasets/Fitabase Data 4.12.16-5.12.16/weightLogInfo_merged.csv")
+head(Weight)
+colnames(Weight)
+str(Weight)
+```
+
+* **heartrate_seconds_merged.csv**
+```{r importing Heartrate dataset}
+Heartrate <- read_csv("C:/Users/user/Documents/BellaBeat/Datasets/Fitabase Data 4.12.16-5.12.16/heartrate_seconds_merged.csv")
+head(Heartrate)
+colnames(Heartrate)
+str(Heartrate)
+```
+
+* **sleepDay_merged.csv**
+```{r importing Sleep dataset}
+Sleep <- read_csv("C:/Users/user/Documents/BellaBeat/Datasets/Fitabase Data 4.12.16-5.12.16/SleepDay_merged.csv")
+head(Sleep)
+colnames(Sleep)
+str(Sleep)
+```
+
+## **PROCESS PHASE**
+In this phase, I will process the data by cleaning,formatting and organizing the data using the following:
+
+### glimpse() function to view each dataset
+```{r viewing each datasets}
+glimpse(Activity)
+glimpse(Calories)
+glimpse(Intensity)
+glimpse(Weight)
+glimpse(Heartrate)
+glimpse(Sleep)
+```
+
+### clean_names() function to clean the names of each dataset
+```{r cleaning the columns names of each dataset}
+clean_names(Activity)
+clean_names(Calories)
+clean_names(Intensity)
+clean_names(Weight)
+clean_names(Heartrate)
+clean_names(Sleep)
+```
+### skim_without_chart() function to check for empty or extra space, missing cells
+```{r checking for error in datasets}
+skim_without_charts(Activity)
+skim_without_charts(Calories)
+skim_without_charts(Intensity)
+skim_without_charts(Weight)
+skim_without_charts(Heartrate)
+skim_without_charts(Sleep)
+```
+ **Due to the numerous missing values in Weight dataset, column Fat was removed**
+```{r delteing a column with numerous missing values}
+Weight <- Weight[, - which(names(Weight) == "Fat")]
+head(Weight)
+```
+
+### distinct_all() to remove duplicate rows
+```{r removing duplicate rows}
+distinct_all(Activity)
+distinct_all(Calories)
+distinct_all(Intensity)
+distinct_all(Weight)
+distinct_all(Heartrate)
+distinct_all(Sleep)
+```
+**Three duplicate rows were removed from Sleep dataset**
+
+### Formatting Datatype in Datasets
+**Activity**
+```{r converting a datatype in Activity Dataset}
+Activity$ActivityDate=as.Date(Activity$ActivityDate, format="%m/%d/%Y",tz=Sys.timezone())
+str(Activity)
+```
+**Calories**
+```{r converting a datatype in Carlories Dataset}
+Calories$ActivityDay=as.Date(Calories$ActivityDay, format="%m/%d/%Y", tz=Sys.timezone())
+str(Calories)
+```
+**Intensity**
+```{r converting a datatype in Intensity Dataset}
+Intensity$ActivityDay=as.Date(Intensity$ActivityDay, format="%m/%d/%Y", tz=Sys.timezone())
+str(Intensity)
+```
+
+## **ANALYSIS PHASE**
+### Number of user in each dataset using smart device.
+```{r distinct number of users}
+Activity %>%
+  summarise(Activity_participants = n_distinct(Activity$Id))
+n_distinct(Calories$Id)
+n_distinct(Intensity$Id)
+n_distinct(Weight$Id)
+n_distinct(Heartrate$Id)
+n_distinct(Sleep$Id)
+```
+There are 33 users in Activity, Calories and Intensity datasets, 24 in Sleep dataset, 14 in Heartrate dataset and 8 in weight dataset. In order not to be bias and to be able to make analysis on a good sample size, further analysis will be done with Activity dataset along with Calories,Intensity and Sleep datasets.
+
+### Statistical Summary of each Dataset
+**Note:** Sedentary means not moving, being still
+**Activity** 
+```{r Statistical Summary of Activity dataset}
+Activity %>%  
+  select(TotalSteps,
+         TotalDistance,
+         SedentaryMinutes, Calories) %>%
+  summary()
+```
+**Calories**
+```{r Statistical Summary of Calories Dataset}
+Calories %>%
+  select(Calories) %>%
+  summary()
+```
+**Activity Minutes in Intensity Dataset**
+```{r Statistical Summary of Activity Minutes in Intensity Dataset }
+Intensity %>%
+  select(VeryActiveMinutes, FairlyActiveMinutes, LightlyActiveMinutes, SedentaryMinutes) %>%
+  summary()
+```
+**Activity Distance in Intensity Dataset**
+```{r Statistical Summary of Activity Distance in Intensity Dataset }
+Intensity %>%
+  select(SedentaryActiveDistance,LightActiveDistance,ModeratelyActiveDistance,VeryActiveDistance) %>%
+  summary()
+```
+**Sleep**
+```{r Statistical Summary of Sleep Dataset}
+Sleep %>%
+  select(TotalSleepRecords, TotalMinutesAsleep, TotalTimeInBed) %>%
+  summary()
+```
+
+### Visualization of Summariazed Data
+```{r visualise to highlight finds}
+ggplot(data = Activity, aes(x=SedentaryMinutes , y=ActivityDate)) + geom_histogram(stat= 'identity', fill='purple') + labs(title="A Glance at Sedentary Minutes")
+ggsave('Sedentary_Mintues_Chart.png')
+
+ggplot(data = Calories, aes(x=Calories , y=ActivityDay)) + geom_histogram(stat= 'identity', fill='purple') + labs(title="A Glance at Calories")
+ggsave('Calories_Chart.png')
+
+ggplot(data = Sleep, aes(x=TotalTimeInBed , y=SleepDay)) + geom_histogram(stat= 'identity', fill='purple') + labs(title="Total Time in Bed")
+ggsave('Total_Time_in_bed_Chart.png')
+
+ggplot(data = Sleep, aes(x=TotalMinutesAsleep , y=SleepDay)) + geom_histogram(stat= 'identity', fill='purple') + labs(title="Total Time Asleep")
+ggsave('Total_Minutes_Asleep_Chart.png')
+```
+
+### **Observations from Analysis**
+The statistical summary aided me to observe negative points in correspondence with the user health. Strategies has to be put in place to work on these observation so as to better the user health
+
+ **Activity dataset**
+ 
+ * The Maximum Sedentary time is high 1440mins(24hrs)
+ * The Average Sedentary time is high 991.2mins(16hours and 52seconds)
+ * The Average and maximum Total Distance is low 5.490
+ * The Average and maximum Total steps is low 7630
+ 
+ **Intensity dataset**
+ 
+ * Majority of these Users are lightly active
+ * Majority of these Users have a high sedentary time
+ * Majority of these Users posses lightly-active-distance
+
+ **Sleep dataset**
+ 
+ * Average sleep time of almost 7hours is observed
+ * A User slept for 796 mins(over 13hours) as recorded by Maximum Total Minutes Asleep
+ * A User was in bed for 961 mins(over 16hours) as recorded by Maximum Total Time in bed
+
+### Merging Datasets
+Activity dataset has columns that can be found in Calories and Intensity dataset thereby relating them. But columns in Sleep Dataset can't be found in Activity dataset. So I will merge Activity and Sleep datasets together using OUTER JOIN because Activity dataset has 33 Users and Sleep dataset has 24 Users so as to have details of all 33 Users.
+
+```{r Merging Activity and Sleep Dataset}
+Combined_data_outer <- merge(Sleep, Activity, by="Id", all = TRUE)
+n_distinct(Combined_data_outer$Id)
+head(Combined_data_outer)
+```
+
+## **SHARE PHASE**
+In this phase, i will visualize  and show relationship between the data  based on my analysis so far using the package "ggplot2" which has being loaded at the beginning of the project.
+
+### Relationship between Total Steps and Sedentary Mintues
+```{r Total Steps vs. Sedentary Mintues Chart}
+ggplot(data=Activity) + geom_point(mapping = aes(x=TotalSteps, y=SedentaryMinutes)) + geom_smooth(mapping = aes(x=TotalSteps, y=SedentaryMinutes)) + labs(title="Total Steps vs. Sedentary Minutes")
+ggsave('Total_Steps_vs_Sedentary_Mintues_Chart.png')
+```
+
+The chart above shows a negative relationship between Total Steps and Sedentary Minutes, i.e the higher the Sedentary Minutes, the lower the Total steps. So therefore, to increase the Total Step of Bellabeat Users, sedentary time must be reduced
+
+### Relationship between Total Minutes Asleep and Total time in Bed
+```{r Total Minutes Asleep vs. Total time in Bed}
+ggplot(data=Sleep) + geom_point(mapping = aes(x=TotalMinutesAsleep, y=TotalTimeInBed)) + geom_smooth(mapping = aes(x=TotalMinutesAsleep, y=TotalTimeInBed)) + labs(title="Total Mintues Asleep vs. Total Time in Bed")
+ggsave('Total_Minutes_Asleep_vs_Total_time_in_Bed.png')
+```
+
+The chart above shows a positive linear relationship between Total Minutes Asleep  and Total Time in Bed, i.e the higher the Total Minutes Asleep, the higher the Total Time in Bed. 
+
+### Relationship between Total Steps and Calories
+```{r Total Steps vs. Calories}
+ggplot(data=Activity) + geom_point(mapping = aes(x=TotalSteps, y=Calories)) + geom_smooth(mapping = aes(x=TotalSteps, y=Calories)) + labs(title="Total Steps vs. Calories")
+ggsave('Total_Steps_vs_Calories.png')
+```
+
+The chart above shows a positive relationship between Total Step  and Calories, i.e the more steps taken, the more Calories  are burnt. 
+
+### Relationship showing Active Intensity over Time
+To visualize this, I will have to merge Intensity dataset with Weight dataset as a new dataframe "Intensity_over_time"using OUTER JOIN so as to access the time in Weight dataset
+```{r Active Period over Time}
+Intensity$ActiveIntensity <- (Intensity$VeryActiveMinutes)/60
+
+Intensity_over_time <- merge(Weight, Intensity, by="Id", all=TRUE)
+Intensity_over_time$time <- format(Intensity_over_time$Date, format = "%H:%M:%S")
+
+ggplot(data=Intensity_over_time, aes(x=time, y=ActiveIntensity)) + geom_histogram(stat = "identity", fill='purple') +
+  theme(axis.text.x = element_text(angle = 90)) +
+  labs(title="Total Active Intensity over Time ")
+ggsave('Intensity_over_time.png')
+```
+
+The chart above shows that most customers are more active during morning hours at around 6:30am - 8am and during evening hours at around 11:40pm -11:59pm
+
+## **ACT PHASE**
+In this phase, I will state my top insights based on my analysis and visualization
+
+### Target Audience 
+The target audience of this analysis business tasks are women, who are busy with their daily activities and need to strike a balance between their work life and health using BellaBeat products. 
+
+### Recommendation to Marketing Team
+
+1. **BellaBeat App should be redesigned to have an alarm/notification function which should be able to notify users periodically during the day to take a walk, thereby encouraging activeness and burning of calories** 
+
+Recommended steps according to Howdy Health,steps 7,000-10,000steps per day for adults aged 18-59years. 6,000-8,000steps per day for adults aged 60+years. 7,500steps per day for adults aged 62-101years.These steps could be achieved in bits during the day, say 4 notification per day, each notification aiming to acheive 2,000steps
+
+* **BellaBeat App should be redesigned to have an alarm/notification function which should be able to notify users when to sleep, calculate the recommended sleep hours and also notify Users when to wake up so as to encourage a healthy sleeping habit.** 
+
+According to the National Sleep Foundation's recommendations, adult aged 18 to 64years require 7-9hrs of sleep a night, while adults older than 64years require 7-8hrs of sleep.
+
+3. **BellaBeat App should be redesigned to calculate and give feedback to User on their progress.**
+
+These feedback should be weekly, which will encourage User to do better in the new week. These feedback should be in percentages. Total Recommended Steps per week should be 52,500steps so  26,250steps will be a 50% progress. Total Recommended Hours of sleep per week should be 56hrs so 45hrs should be 80% progress.Total Recommended Calories that should be burned by women per week 12,425 (as recommended by WebMD Fitness and Exercise is 1600-1950 per day, averagely 1775 ) so 8,000 should be 64%
+
+4. **BellaBeat App should be redesigned to have an information section.**
+
+This information section should be able to inform users  on the benefits of healthy lifestyle, which includes taking walks, sleeping adequately, eating healthy which we help reduce calories in take.
+
+5. **Intensity-over-time chart should be created so as to monitors users activity and constantly come up with strategy that will help keep BellaBeat in trend, unique and up-to-date.**
+
+### References 
+This analysis was done with help of sample r codes and guidelines from the following site
+
+* Coursera notes
+* Case-study guidelines
+* Case-study roadmap
+* https://rmarkdown.rstudio.com 
+* https://www.geeksforgeeks.org
+* https://cran.r-project.org
+
