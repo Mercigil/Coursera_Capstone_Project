@@ -20,7 +20,7 @@ FitBit Fitness Tracker Data: [Click Here](https://www.kaggle.com/datasets/arashn
 
 ---
 ### Tools Used
-- R Studio [Download Here](https://www.microsoft.com)
+- R Studio
   1. For Data Cleaning
   2. For Data Analysis
   3. For Data Visualizations
@@ -30,7 +30,7 @@ FitBit Fitness Tracker Data: [Click Here](https://www.kaggle.com/datasets/arashn
 ---
 ### Attached Files
 Attached in this repository are documentations of this analysis process carried out using R-studio in different documnet formats
-1. R-Studio RMD File (Casestudy_Bellabeat_July_2024.Rmd)
+1. R-Studio RMD File [Casestudy_Bellabeat_July_2024.Rmd](Casestudy_Bellabeat_July_2024.Rmd)
 2. Web document (Casestudy_Bellabeat_July_2024.html)
 3. Word Document (Casestudy_Bellabeat_July_2024.docx)
 4. PowerPoint Presentation (Casestudy_Bellabeat_July_2024.pptx)
