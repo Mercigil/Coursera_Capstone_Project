@@ -7,8 +7,6 @@
 
 [Tools Used](#tools-used) 
 
-[Data Cleaning and Preparartions](#Data-Cleaning-and-Preparartions)
-
 ---
 ### Introduction
 Welcome to my Google Data Analytics Capstone project, Bellabeat Case Study! This case study will answer a business task, which follows the steps of data analysis process: Ask, Prepare, Process, Analyze, Share, and Act
@@ -29,6 +27,6 @@ FitBit Fitness Tracker Data: [Click Here](https://www.kaggle.com/datasets/arashn
 
 ---
 ### Note:
-Attached in this repository are documention of this analysis process carried out using R-studio
+Attached in this repository are documentations of this analysis process carried out using R-studio in PDF, RMD file and Ms-Word Formats
 
 ---
