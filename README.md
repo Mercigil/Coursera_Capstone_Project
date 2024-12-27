@@ -34,6 +34,7 @@ Attached in this repository are documentations of this analysis process carried 
 2. Web document [Casestudy_Bellabeat_July_2024.html](Casestudy_Bellabeat_July_2024.html)
 3. Word Document [Casestudy_Bellabeat_July_2024.docx](Casestudy_Bellabeat_July_2024.docx)
 4. PowerPoint Presentation [Casestudy_Bellabeat_July_2024.pptx](Casestudy_Bellabeat_July_2024.pptx)
+
 Download and View
 ---
-#THANK YOU
+# THANK YOU
