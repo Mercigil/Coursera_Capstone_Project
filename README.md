@@ -1,2 +1,34 @@
 # Coursera_Capstone_Project
-A documentation of my capstone project from Google Professional Data Analytics taken via Coursera Platform
+
+### Project Title: BellaBeat Project 
+[Introduction](#introduction) 
+
+[Data Source](#data-source) 
+
+[Tools Used](#tools-used) 
+
+[Data Cleaning and Preparartions](#Data-Cleaning-and-Preparartions)
+
+---
+### Introduction
+Welcome to my Google Data Analytics Capstone project, Bellabeat Case Study! This case study will answer a business task, which follows the steps of data analysis process: Ask, Prepare, Process, Analyze, Share, and Act
+
+---
+### Data Source
+The stakeholders encouraged me to use public data that explores smart device users’ daily habits. FitBit Fitness Tracker Data (CC0: Public Domain, dataset made available through Mobius). This Kaggle data set contains personal fitness tracker from fitbit users who consented to the submission of personal tracker data, including minute-level output for physical activity, heart rate, and sleep monitoring. It includes information about daily activity, steps, and heart rate that can be used to explore users’ habits. The dataset
+FitBit Fitness Tracker Data: [Click Here](https://www.kaggle.com/datasets/arashnic/fitbit)
+
+---
+### Tools Used
+- R Studio [Download Here](https://www.microsoft.com)
+  1. For Data Cleaning
+  2. For Data Analysis
+  3. For Data Visualizations
+  4. For Documention
+- GitHub for Portfolio Building
+
+---
+### Note:
+Attached in this repository are documention of this analysis process carried out using R-studio
+
+---
